@@ -1,0 +1,23 @@
+<div id="better-picker-component">
+	<div class="picker" id="picker-any">
+		<div class="picker-panel panel-hook bs-top tc" [ngClass]="{'show': showPicker}">
+			<div class="picker-choose choose-hook">
+				<span class="cancel cancel-hook" (click)="cancel()">Cancel</span>
+				<span class="confirm confirm-hook" (click)="confirm()">Confirm</span>
+			</div>
+			<div class="picker-content">
+				<div class="mask-top border-1px"></div>
+				<div class="mask-bottom border-1px"></div>
+				<div class="wheel-wrapper wheel-wrapper-hook">
+					<div class="wheel wheel-hook" *ngFor="let wheels of inputWheelsData">
+						<ul class="wheel-scroll wheel-scroll-hook">
+							<li class="wheel-item" *ngFor="let wheelsItem of wheels; let i = index">
+								<i *ngIf="wheelsItem === ''" class="horizontal-rule"></i> {{wheelsItem}}
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
