@@ -13,7 +13,7 @@
       padding: 12px 18px 0;
       background: $white;
       will-change: transform;
-      // @include translate3d(0, 250px, 0);
+      @include translate3d(0, 250px, 0);
       -webkit-transition: transform .3s ease;
       transition: transform .3s ease;
       .picker-choose {
@@ -29,7 +29,7 @@
       .confirm,
       .cancel {
         position: absolute;
-        @include wh(134px, 100%); // top: .6rem;
+        @include wh(134px, 100%);
       }
       .confirm {
         right: 10px;
@@ -65,7 +65,7 @@
       display: -ms-flexbox;
       display: -webkit-box;
       display: -webkit-flex;
-      display: flex; // padding: 0 1rem;
+      display: flex;
       height: 100%;
       &:after {
         content: '';

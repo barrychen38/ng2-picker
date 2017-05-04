@@ -1,1 +1,5 @@
-<better-picker></better-picker>
+<button type="button" (click)="activeWheels()">please choose</button>
+<br>
+<p>{{selectedValue}}</p>
+
+<better-picker [inputWheelsData]="parnetData" [show]="showPicker" [field]="field" (hide)="hidePicker($event)" (sendSelected)="receiveSelected($event)"></better-picker>
