@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 
 export class AppComponent {
 	
-	private parnetData: any[] = [
+	private parentData: any[] = [
 		[
 			'Apple',
 			'Microsoft',

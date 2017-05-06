@@ -40,7 +40,10 @@ export class BetterPickerComponent implements AfterViewInit, OnChanges {
 			this.wheelsSelectorInit();
 		}
 	}
-
+	
+	/**
+	 * detect the change of inputWheelsData
+	 */
 	ngOnChanges(value: any) {
 		if (value.show.currentValue) {
 			setTimeout(() => {
