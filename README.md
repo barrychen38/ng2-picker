@@ -1,14 +1,16 @@
 ## ng2-picker
 
-这个项目是使用 [Angular CLI](https://github.com/angular/angular-cli) 生成的，主要是*webpack*的一大堆配置嫌烦，所以就借着巨人的肩旁来快速开发。
+基于 *Angular2/4* 的滑轮选择组件（A货）。
+
+项目本身是使用 [Angular CLI](https://github.com/angular/angular-cli) 生成的，主要是 *webpack* 的一大堆配置嫌烦，所以就借着巨人肩旁来快速开发。
 
 ### 简介
 
-最近在用 [Angular4](https://angular.io/) 做一个项目，需要按照设计稿来实现一个类似 `ios` 原生的 `select` 效果，在网上找了很久都没有找到可以匹配 *Angular2* 的插件，于是在 *GitHub* 找到了[这个](https://github.com/ustbhuangyi/picker)，没有任何依赖，打包后的版本只有 `32Kb` 左右，当然是经过了自己的一番改造。
+最近在用 [Angular4](https://angular.io/) 做一个项目，需要按照设计稿来实现一个类似 *ios* 原生的 *select* 效果，在网上找了很久都没有找到可以匹配 *Angular2* 的插件，于是在 *GitHub* 找到了[这个](https://github.com/ustbhuangyi/picker)，没有任何依赖，打包后的版本只有 `32Kb` 左右，当然是经过了自己的一番改造。
 
-主要的改造是把 `HTML` 和 `CSS` 单独提取出来，这样比较适合 *Angular2* 的开发模式，每个组件都有对应单独的模版和样式文件。
+主要的改造是把 *HTML* 和 *CSS* 单独提取出来，这样比较适合 *Angular2* 的开发模式，每个组件都有对应单独的模版和样式文件。
 
-还有一部分就是对 `js` 的改造，虽然没有大致看懂作者的思路，但是通过乱七八糟的断点调试，最后终于改成了一个单独文件，还解决了一些其他小问题。
+还有一部分就是对 *js* 的改造，虽然没有大致看懂作者的思路，但是通过乱七八糟的断点调试，最后终于改成了一个单独文件，还解决了一些其他小问题。
 
 > 在此非常感谢[原作者](https://github.com/ustbhuangyi)对开源的贡献。
 
@@ -33,7 +35,7 @@ git clone https://github.com/Chen38/ng2-picker.git
 npm install
 
 # 运行
-npm run dev
+npm run start
 
 # ** NG Live Development Server is running on http://localhost:4200 **
 ```
@@ -131,3 +133,7 @@ interface SendData {
 
 - [ ] 类似城市的三级或其他的二级联动，项目中已经写好了，之后会重新整理一下放上去
 - [ ] 控制是否联动的方式应该需要设置一下
+
+## License
+
+MIT
