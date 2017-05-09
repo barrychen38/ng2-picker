@@ -1,0 +1,23 @@
+{
+	"Marvel": [
+		"Iron Man",
+		"Thor",
+		"Captain America",
+		"Guardians of the Galaxy",
+		"Avengers",
+		"Ant-Man"
+	],
+	"DC": [
+		"Batman vs Superman",
+		"Suicide Squad",
+		"Wonder Woman",
+		"Justice League",
+		"Green Lantern"
+	],
+	"Pixar": [
+		"The Good Dinosaur",
+		"Inside Out",
+		"Monsters University",
+		"Toy Story"
+	]
+}
