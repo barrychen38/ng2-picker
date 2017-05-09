@@ -5,7 +5,7 @@
   "scripts": {
     "start": "webpack-dev-server --config webpack.config.js --port=4200 --open --progress --profile --watch --content-base src/",
     "build": "rimraf -- dist && webpack --config webpack.prod.config.js --progress --profile --bail",
-		"deploy": "gh-pages -d dist -n"
+		"deploy": "node deploy.js"
   },
   "private": true,
   "dependencies": {
