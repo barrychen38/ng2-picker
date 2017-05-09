@@ -142,7 +142,7 @@ export class AppComponent {
 	 * get data from local
 	 */
 	getData(url: string) {
-		return this.http.get('/assets/mock-data/' + url)
+		return this.http.get('assets/mock-data/' + url)
 			.map((res: Response) => {
 				return res.json();
 			});

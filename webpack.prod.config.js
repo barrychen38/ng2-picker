@@ -368,7 +368,8 @@ module.exports = {
     }),
     new ProgressPlugin(),
     new HtmlWebpackPlugin({
-      "template": "./src/index.html",
+			"baseUrl": "/ng2-picker/",
+      "template": "./src/index.ejs",
       "filename": "./index.html",
       "hash": false,
       "inject": true,
@@ -379,7 +380,6 @@ module.exports = {
       "showErrors": true,
       "chunks": "all",
       "excludeChunks": [],
-      "title": "Webpack App",
       "xhtml": true,
       "chunksSortMode": function sort(left, right) {
         let leftIndex = entryPoints.indexOf(left.names[0]);

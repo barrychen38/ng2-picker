@@ -2,7 +2,12 @@ const path = require('path');
 const ghpages = require('gh-pages');
 
 ghpages.publish('dist', {
-	push: true
+	push: true,
+	message: "update gh-pages"
 }, (err) => {
-	console.error(err);
+	if (err) {
+		console.error(err);
+		return;
+	}
+	console.log('Published.');
 });

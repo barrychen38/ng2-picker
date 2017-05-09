@@ -40,7 +40,7 @@ npm run start
 # ** NG Live Development Server is running on http://localhost:4200 **
 ```
 
-<!--也可以查看在线 [DEMO](https://chen38.github.io/ng2-picker/)-->
+也可以查看在线 [DEMO](https://chen38.github.io/ng2-picker/)
 
 ### 使用
 
