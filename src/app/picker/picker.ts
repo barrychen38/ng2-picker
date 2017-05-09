@@ -33,7 +33,7 @@ export class BetterPickerComponent implements AfterViewInit, OnChanges {
 	@Input() private show: boolean;
 	@Input() private selectedIndex: number[];
 
-	@Output() private onSelect: EventEmitter<any> = new EventEmitter<any>();
+	@Output() private onSelect: EventEmitter<SendData> = new EventEmitter<SendData>();
 	@Output() private onChange: EventEmitter<any> = new EventEmitter<any>();
 
 	private picker: any;

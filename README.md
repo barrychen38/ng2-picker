@@ -50,7 +50,7 @@ import { BetterPickerModule } from './picker/picker';
 
 @NgModule({
   imports: [
-		BetterPickerModule
+    BetterPickerModule
   ]
 })
 export class AppModule { }
@@ -67,22 +67,22 @@ export class AppModule { }
 ```typescript
 // Output datas
 private parentData: any[] = [
-	[
-		'Apple',
+  [
+    'Apple',
     '...'
-	]
+  ]
 ];
 private showPicker: boolean;
 private selectIndex: number[] = [0, 0, 0];
 // Input events
 onSelect(value: SendData) {
-	let { action, show, selectedValue, selectedIndex } = value;
-	console.log(`action: ${action}, selectedValue: ${selectedValue}, selectedIndex: ${selectedIndex}`);
-	this.showPicker = show;
+  let { action, show, selectedValue, selectedIndex } = value;
+  console.log(`action: ${action}, selectedValue: ${selectedValue}, selectedIndex: ${selectedIndex}`);
+  this.showPicker = show;
 }
 onChange(value: any) {
-	let { wheel, index } = value;
-	console.log(`wheel: ${wheel}, index: ${index}`);
+  let { wheel, index } = value;
+  console.log(`wheel: ${wheel}, index: ${index}`);
 }
 ```
 
@@ -99,33 +99,33 @@ private parentData: any[] = [
   [
     '',
     'Apple',
-		'...'
+    '...'
   ]
 ];
 ```
 
-- `show: boolean`：激活和隐藏参数，实质是添加和移除 **className**
+- `show: boolean`：激活和隐藏参数，实质是 **className** 添加和移除
 
 - `selectedIndex: number[]`：初始化的选择序号，默认为 **[0, 0, 0]**
 
 #### 返回触发事件
 
-- `onSelect(value: any): EventEmitter<any>`：点击确定时触发，并向父组件传递每列选择的值 `selectedValue` 和 `selectedIndex`。
+- `onSelect(value: SendData): EventEmitter<SendData>`：点击确定时触发，并向父组件传递每列选择的值 **selectedValue** 和 **selectedIndex**。
 
 事件返回值定义了一个接口，用来确定返回的结果：
 
 ```typescript
 interface SendData {
-	action: string;
-	show: boolean;
-	selectedValue: string[];
-	selectedIndex: number[];
+  action: string;
+  show: boolean;
+  selectedValue: string[];
+  selectedIndex: number[];
 }
 ```
 
 > 新版本的*Angular*参数传递采用的是一种流的形式，所以只有一种方向的传递，因为我们选择了从父组件向子组件的传递方式，所以无法在子组件里改变传入的值并同时改变父组件的值，所以只能通过 `event emit` 的形式来改变父组件的值再传递给子组件，这么做确实比较复杂，目前我是没有想到什么好办法，主要也是刚起步，以后如有其他方法会改进。
 
-- `onChange(value: any): EventEmitter<any>`：当一列滚动停止时触发，并向父组件传递列序号 `wheel` 和停止的位置 `index`。
+- `onChange(value: any): EventEmitter<any>`：当一列滚动停止时触发，并向父组件传递列序号 **wheel** 和停止的位置 **index**。
 
 ### To Do List
 
