@@ -1928,7 +1928,7 @@ var AppComponent = (function () {
      * get data from local
      */
     AppComponent.prototype.getData = function (url) {
-        return this.http.get('/assets/mock-data/' + url)
+        return this.http.get('../assets/mock-data/' + url)
             .map(function (res) {
             return res.json();
         });
