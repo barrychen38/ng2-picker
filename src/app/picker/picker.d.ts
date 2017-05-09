@@ -1,17 +1,17 @@
-import { EventEmitter, OnInit, AfterViewInit } from '@angular/core';
+import { EventEmitter, AfterViewInit, OnChanges } from '@angular/core';
 
-export declare class BetterPickerComponent implements OnInit, AfterViewInit {
+export declare class BetterPickerComponent implements AfterViewInit, OnChanges {
 
-	picker: any;
-	inputWheelsData: any[];
-	field: string;
-	hide: EventEmitter<any>;
-	sendSelected: EventEmitter<any>;
+	data: any[];
+	show: boolean;
+	selectIndex: number[];
+	onSelect: EventEmitter<any>;
+	onChange: EventEmitter<any>;
 
-	ngOnInit(): void;
 	ngAfterViewInit(): void;
+	ngOnChanges(): void;
 
-	wheelsSelectorInit(): void;
+	pickerInit(): void;
 	cancel(): void;
 	confirm(): void;
 

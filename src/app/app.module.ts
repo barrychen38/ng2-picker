@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 
-import { PickerModule } from './picker/picker';
+import { BetterPickerModule } from './picker/picker';
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -14,7 +14,7 @@ import { AppComponent } from './app.component';
     BrowserModule,
     HttpModule,
 		FormsModule,
-		PickerModule
+		BetterPickerModule
   ],
   bootstrap: [ AppComponent ]
 })

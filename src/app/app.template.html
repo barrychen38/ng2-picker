@@ -1,5 +1,13 @@
-<button type="button" (click)="activeWheels()">please choose</button>
-<br>
-<p>{{selectedValue}}</p>
+<div class="wrapper">
+	<h4>一级选择</h4>
+	<button type="button" (click)="activePicker(1)">点我选择</button>
+	<p>{{selectedBrand}}</p>
+	<h4>二级联动选择</h4>
+	<button type="button" (click)="activePicker(2)">点我选择</button>
+	<p>{{selectedMovie}}</p>
+	<h4>三级联动选择</h4>
+	<button type="button" (click)="activePicker(3)">点我选择</button>
+	<p>{{selectedArea}}</p>
+</div>
 
-<better-picker [inputWheelsData]="parentData" [show]="showPicker" [field]="field" (hide)="hidePicker($event)" (sendSelected)="receiveSelected($event)"></better-picker>
+<better-picker [data]="parentData" [show]="showPicker" [selectedIndex]="selectIndex" (onSelect)="onSelect($event)" (onChange)="onChange($event)"></better-picker>

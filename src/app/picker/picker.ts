@@ -12,6 +12,13 @@ import {
 import { CommonModule } from '@angular/common';
 // Import library
 import { Picker } from '../../vendor/better-picker/picker';
+// define send interface
+export interface SendData {
+	action: string;
+	show: boolean;
+	selectedValue: string[];
+	selectedIndex: number[];
+}
 
 /* ---------------- define component and export ---------------- */
 @Component({
@@ -22,32 +29,31 @@ import { Picker } from '../../vendor/better-picker/picker';
 
 export class BetterPickerComponent implements AfterViewInit, OnChanges {
 
-	@Input() private inputWheelsData: any[];
-	@Input() private field: string;
+	@Input() private data: any[];
 	@Input() private show: boolean;
+	@Input() private selectedIndex: number[];
 
-	@Output() private hide: EventEmitter<any> = new EventEmitter<any>();
-	@Output() private sendSelected: EventEmitter<any> = new EventEmitter<any>();
+	@Output() private onSelect: EventEmitter<any> = new EventEmitter<any>();
+	@Output() private onChange: EventEmitter<any> = new EventEmitter<any>();
 
 	private picker: any;
-	private selectedIndex: number[] = [0];
 
 	/**
 	 * make sure all datas and view rendered to init the wheels selector
 	 */
 	ngAfterViewInit() {
-		if (this.inputWheelsData.length) {
-			this.wheelsSelectorInit();
+		if (this.data.length) {
+			this.pickerInit();
 		}
 	}
 	
 	/**
-	 * detect the change of inputWheelsData
+	 * detect the change of data
 	 */
 	ngOnChanges(value: any) {
 		if (value.show.currentValue) {
 			setTimeout(() => {
-				this.picker.refresh(this.inputWheelsData, this.selectedIndex);
+				this.picker.refresh(this.data, this.selectedIndex);
 			}, 0);
 		}
 	}
@@ -55,23 +61,25 @@ export class BetterPickerComponent implements AfterViewInit, OnChanges {
 	/**
 	 * initialize wheels selector
 	 */
-	wheelsSelectorInit() {
+	pickerInit() {
 		this.picker = new Picker({
 			container: 'picker-any',
-			data: this.inputWheelsData,
-			selectedIndex: [0]
+			data: this.data,
+			selectedIndex: this.selectedIndex
 		});
 		// picker select event
 		this.picker.on('picker.select', (selectedValue: string[], selectedIndex: number[]) => {
-			this.hide.emit({
+			let value: SendData = {
 				action: 'confirm',
 				show: false,
-				selectedValue
-			});
+				selectedValue,
+				selectedIndex
+			};
+			this.onSelect.emit(value);
 		});
 		// picker change event
 		this.picker.on('picker.change', (wheel: number, index: number) => {
-			this.sendSelected.emit({
+			this.onChange.emit({
 				wheel,
 				index
 			});
@@ -83,11 +91,13 @@ export class BetterPickerComponent implements AfterViewInit, OnChanges {
 	 */
 	cancel() {
 		this.picker.hide(() => {
-			this.hide.emit({
-				action: 'cancel',
+			let value: SendData = {
+				action: 'confirm',
 				show: false,
-				selectedValue: this.picker.selectedVal
-			});
+				selectedValue: this.picker.selectedVal,
+				selectedIndex: this.picker.selectedIndex
+			};
+			this.onSelect.emit(value);
 		});
 	}
 
@@ -106,5 +116,4 @@ export class BetterPickerComponent implements AfterViewInit, OnChanges {
 	exports: [ BetterPickerComponent ],
 	declarations: [ BetterPickerComponent ]
 })
-
-export class PickerModule { }
+export class BetterPickerModule { }
