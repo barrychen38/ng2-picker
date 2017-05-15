@@ -1818,8 +1818,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+// Import from Angular
 
 
+// Import RxJS
 
 var AppComponent = (function () {
     function AppComponent(http) {
@@ -1828,29 +1830,29 @@ var AppComponent = (function () {
         this.initData = {
             brands: [
                 [
-                    'Apple',
-                    'Microsoft',
-                    'Google',
-                    'Facebook',
-                    'Airbnb'
+                    '',
+                    'NIKE',
+                    'ADIDAS',
+                    'UNDER ARMOUR'
                 ]
             ],
             movies: [[], []],
             locations: [[], [], []]
         };
         this.selectIndex = [0, 0, 0];
+        this.firstCheck = 0;
         this.parentData = this.initData.brands;
         // store locations data
         this.getData('location.json').subscribe(function (locations) {
             _this.locationData = locations;
-            _this.buildLocationData(_this.locationData);
+            _this.initData.locations = _this.buildData(_this.locationData);
         }, function (error) {
             console.error(error);
         });
         // store movies data
         this.getData('movie.json').subscribe(function (movies) {
             _this.movieData = movies;
-            _this.buildMovieData(_this.movieData);
+            _this.initData.movies = _this.buildData(_this.movieData);
         }, function (error) {
             console.error(error);
         });
@@ -1905,30 +1907,86 @@ var AppComponent = (function () {
     AppComponent.prototype.onChange = function (value) {
         var wheel = value.wheel, index = value.index;
         console.log("wheel: " + wheel + ", index: " + index);
+        if (this.type === 2) {
+            this.changeConnectData(this.movieData, this.initData.movies, wheel, index);
+        }
+        if (this.type === 3) {
+            this.changeConnectData(this.locationData, this.initData.locations, wheel, index);
+        }
     };
     /**
-     * build location data to fit the picker
+     * change connected data
      */
-    AppComponent.prototype.buildLocationData = function (location) {
-        this.initData.locations[0] = Object.keys(location);
-        var firstProvince = this.initData.locations[0][0];
-        this.initData.locations[1] = Object.keys(location[firstProvince]);
-        var firstCity = this.initData.locations[1][0];
-        this.initData.locations[2] = location[firstCity][firstCity];
+    AppComponent.prototype.changeConnectData = function (data, initData, wheel, index) {
+        if (!initData[wheel + 1]) {
+            return;
+        }
+        if (wheel === 0) {
+            this.firstCheck = index;
+        }
+        var firstData = data[initData[0][this.firstCheck]];
+        var secondIndex = index;
+        if (firstData instanceof Array) {
+            initData[1] = firstData;
+            this.parentData = initData;
+            return;
+        }
+        if (wheel !== 1) {
+            initData[1] = Object.keys(firstData);
+            secondIndex = 0;
+        }
+        var secondData = data[initData[0][this.firstCheck]][initData[1][secondIndex]];
+        initData[2] = secondData;
+        this.parentData = initData;
     };
     /**
-     * build movie data to fit the picker
+     * build data to fit the picker
      */
-    AppComponent.prototype.buildMovieData = function (movie) {
-        this.initData.movies[0] = Object.keys(movie);
-        var firstCompany = this.initData.movies[0][0];
-        this.initData.movies[1] = movie[firstCompany];
+    AppComponent.prototype.buildData = function (data) {
+        var initData = [];
+        var dataLength = this.getDataLength(data);
+        if (dataLength === 1) {
+            initData.push(data);
+            return initData;
+        }
+        var firstData = [];
+        var circleData = data;
+        for (var i = 0; i < dataLength; i++) {
+            if (circleData instanceof Array) {
+                initData[i] = circleData;
+                break;
+            }
+            initData[i] = Object.keys(circleData);
+            firstData[i] = initData[i][0];
+            circleData = circleData[firstData[i]];
+        }
+        return initData;
+    };
+    /**
+     * get data length of Object, only to 3
+     */
+    AppComponent.prototype.getDataLength = function (data) {
+        if (data instanceof Array) {
+            return 1;
+        }
+        if (data instanceof Object) {
+            var firstLayer = Object.keys(data);
+            var firstLayerData = data[firstLayer[0]];
+            if (firstLayerData instanceof Array) {
+                return 2;
+            }
+            var secondLayer = Object.keys(firstLayerData);
+            var secondLayerData = data[firstLayer[0]][secondLayer[0]];
+            if (secondLayerData instanceof Array) {
+                return 3;
+            }
+        }
     };
     /**
      * get data from local
      */
     AppComponent.prototype.getData = function (url) {
-        return this.http.get('assets/mock-data/' + url)
+        return this.http.get("assets/mock-data/" + url)
             .map(function (res) {
             return res.json();
         });
@@ -2070,6 +2128,16 @@ var BetterPickerComponent = (function () {
                 wheel: wheel,
                 index: index
             });
+            if (wheel === 0) {
+                _this.selectedIndex[1] = 0;
+                _this.selectedIndex[2] = 0;
+            }
+            if (wheel === 1) {
+                _this.selectedIndex[2] = 0;
+            }
+            setTimeout(function () {
+                _this.picker.refresh(_this.data, _this.selectedIndex);
+            }, 0);
         });
     };
     /**
