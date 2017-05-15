@@ -83,6 +83,16 @@ export class BetterPickerComponent implements AfterViewInit, OnChanges {
 				wheel,
 				index
 			});
+			if (wheel === 0) {
+				this.selectedIndex[1] = 0;
+				this.selectedIndex[2] = 0;
+			}
+			if (wheel === 1) {
+				this.selectedIndex[2] = 0;
+			}
+			setTimeout(() => {
+				this.picker.refresh(this.data, this.selectedIndex);
+			}, 0);
 		});
 	}
 

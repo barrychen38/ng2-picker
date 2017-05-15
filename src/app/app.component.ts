@@ -1,8 +1,9 @@
+// Import from Angular
 import { Component } from '@angular/core';
 import { Http, Response } from '@angular/http';
-
+// Import library
 import { SendData } from './picker/picker';
-
+// Import RxJS
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Rx';
 
@@ -19,11 +20,10 @@ export class AppComponent {
 	private initData: any = {
 		brands: [
 			[
-				'Apple',
-				'Microsoft',
-				'Google',
-				'Facebook',
-				'Airbnb'
+				'',
+				'NIKE',
+				'ADIDAS',
+				'UNDER ARMOUR'
 			]
 		],
 		movies: [[], []],
@@ -38,6 +38,8 @@ export class AppComponent {
 	private selectedMovie: string;
 	private selectedArea: string;
 
+	private firstCheck: number = 0;
+
 	private type: number;
 
 	constructor(
@@ -47,14 +49,14 @@ export class AppComponent {
 		// store locations data
 		this.getData('location.json').subscribe((locations) => {
 			this.locationData = locations;
-			this.buildLocationData(this.locationData);
+			this.initData.locations = this.buildData(this.locationData);
 		}, (error) => {
 			console.error(error);
 		});
 		// store movies data
 		this.getData('movie.json').subscribe((movies) => {
 			this.movieData = movies;
-			this.buildMovieData(this.movieData);
+			this.initData.movies = this.buildData(this.movieData);
 		}, (error) => {
 			console.error(error);
 		});
@@ -116,33 +118,92 @@ export class AppComponent {
 	onChange(value: any) {
 		let { wheel, index } = value;
 		console.log(`wheel: ${wheel}, index: ${index}`);
+
+		if (this.type === 2) {
+			this.changeConnectData(this.movieData, this.initData.movies, wheel, index);
+		}
+		if (this.type === 3) {
+			this.changeConnectData(this.locationData, this.initData.locations, wheel, index);
+		}
+		
 	}
 
 	/**
-	 * build location data to fit the picker
+	 * change connected data
 	 */
-	buildLocationData(location: any) {
-		this.initData.locations[0] = Object.keys(location);
-		let firstProvince: string = this.initData.locations[0][0];
-		this.initData.locations[1] = Object.keys(location[firstProvince]);
-		let firstCity: string = this.initData.locations[1][0];
-		this.initData.locations[2] = location[firstCity][firstCity];
+	changeConnectData(data: any, initData: any[], wheel: number, index: number) {
+		if (!initData[wheel + 1]) {
+			return;
+		}
+		if (wheel === 0) {
+			this.firstCheck = index;
+		}
+		let firstData: any = data[initData[0][this.firstCheck]];
+		let secondIndex: number = index;
+		if (firstData instanceof Array) {
+			initData[1] = firstData;
+			this.parentData = initData;
+			return;
+		}
+		if (wheel !== 1) {
+			initData[1] = Object.keys(firstData);
+			secondIndex = 0;
+		}
+		let secondData: any = data[initData[0][this.firstCheck]][initData[1][secondIndex]];
+		initData[2] = secondData;
+		this.parentData = initData;
 	}
 
 	/**
-	 * build movie data to fit the picker
+	 * build data to fit the picker
 	 */
-	buildMovieData(movie: any) {
-		this.initData.movies[0] = Object.keys(movie);
-		let firstCompany: string = this.initData.movies[0][0];
-		this.initData.movies[1] = movie[firstCompany];
+	buildData(data: any): any[] {
+		let initData: any[] = [];
+		let dataLength: number = this.getDataLength(data);
+		if (dataLength === 1) {
+			initData.push(data);
+			return initData;
+		}
+		let firstData: any[] = [];
+		let circleData: any = data;
+		for (let i = 0; i < dataLength; i++) {
+			if (circleData instanceof Array) {
+				initData[i] = circleData;
+				break;
+			}
+			initData[i] = Object.keys(circleData);
+			firstData[i] = initData[i][0];
+			circleData = circleData[firstData[i]];
+		}
+		return initData;
 	}
+
+	/**
+	 * get data length of Object, only to 3
+	 */
+	 getDataLength(data: any): number {
+		if (data instanceof Array) {
+			return 1;
+		}
+		if (data instanceof Object) {
+			let firstLayer: any[] = Object.keys(data);
+			let firstLayerData: any = data[firstLayer[0]];
+			if (firstLayerData instanceof Array) {
+				return 2;
+			}
+			let secondLayer: any[] = Object.keys(firstLayerData);
+			let secondLayerData: any = data[firstLayer[0]][secondLayer[0]];
+			if (secondLayerData instanceof Array) {
+				return 3;
+			}
+		}
+	 }
 
 	/**
 	 * get data from local
 	 */
 	getData(url: string) {
-		return this.http.get('assets/mock-data/' + url)
+		return this.http.get(`assets/mock-data/${url}`)
 			.map((res: Response) => {
 				return res.json();
 			});
