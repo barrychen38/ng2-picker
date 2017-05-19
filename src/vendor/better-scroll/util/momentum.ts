@@ -2,7 +2,7 @@ export function momentum(current, start, time, lowerMargin, wrapperSize, options
 	let distance = current - start;
 	let speed = Math.abs(distance) / time;
 
-	let {deceleration, itemHeight, swipeBounceTime, bounceTime} = options;
+	let { deceleration, itemHeight, swipeBounceTime, bounceTime } = options;
 	let duration = options.swipeTime;
 	let rate = options.wheel ? 4 : 15;
 

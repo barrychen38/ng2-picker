@@ -83,8 +83,9 @@ export const eventType = {
 };
 
 export function getRect(el) {
-  if (el instanceof window.SVGElement) {
-    var rect = el.getBoundingClientRect();
+	let _w: any = window;
+  if (el instanceof _w.SVGElement) {
+    let rect = el.getBoundingClientRect();
     return {
       top: rect.top,
       left: rect.left,
@@ -111,7 +112,7 @@ export function preventDefaultException(el, exceptions) {
 }
 
 export function tap(e, eventName) {
-  let ev = document.createEvent('Event');
+  let ev: any = document.createEvent('Event');
   ev.initEvent(eventName, true, true);
   ev.pageX = e.pageX;
   ev.pageY = e.pageY;
@@ -119,10 +120,11 @@ export function tap(e, eventName) {
 };
 
 export function click(e) {
-  var target = e.target;
+  let target = e.target;
 
   if (!(/(SELECT|INPUT|TEXTAREA)/i).test(target.tagName)) {
-    let ev = document.createEvent(window.MouseEvent ? 'MouseEvents' : 'Event');
+		let _w: any = window;
+    let ev: any = document.createEvent(_w.MouseEvent ? 'MouseEvents' : 'Event');
     ev.initEvent('click', true, true);
     ev._constructed = true;
     target.dispatchEvent(ev);

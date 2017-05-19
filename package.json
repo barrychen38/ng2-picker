@@ -27,8 +27,6 @@
     "@types/jasmine": "2.5.38",
     "@types/node": "~6.0.60",
     "autoprefixer": "^6.5.3",
-    "babel": "^6.23.0",
-    "babel-preset-es2015": "^6.24.1",
     "codelyzer": "~2.0.0",
     "css-loader": "^0.27.3",
     "cssnano": "^3.10.0",

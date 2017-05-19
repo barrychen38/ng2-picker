@@ -393,11 +393,11 @@ module.exports = {
         }
       }
     }),
-		// new UglifyJSPlugin({
-		// 	compress: true,
-		// 	beautify: false,
-		// 	comments: false
-		// }),
+		new UglifyJSPlugin({
+			compress: true,
+			beautify: false,
+			comments: false
+		}),
     new BaseHrefWebpackPlugin({}),
     new CommonsChunkPlugin({
       "name": "inline",

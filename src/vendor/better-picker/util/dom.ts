@@ -4,7 +4,7 @@ export function createDom(tpl) {
 	return container.childNodes[0];
 };
 
-export function addEvent(el, type, fn, capture) {
+export function addEvent(el, type, fn, capture?) {
 	el.addEventListener(type, fn, !!capture);
 };
 
