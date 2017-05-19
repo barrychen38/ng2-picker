@@ -1,4 +1,7 @@
 export default class EventEmitter {
+
+	public _events: any;
+
 	constructor() {
 		this._events = {};
 	}
@@ -40,7 +43,7 @@ export default class EventEmitter {
 		}
 	}
 
-	trigger(type) {
+	trigger(type, index, value) {
 		let events = this._events[type];
 		if (!events) {
 			return;
@@ -57,4 +60,3 @@ export default class EventEmitter {
 		}
 	}
 };
-
