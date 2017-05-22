@@ -6,6 +6,7 @@ $cancle-color: #444;
 $empty-color: #979797;
 $border-color: #dfdfdf;
 $item-color: #4a4a4a;
+
 // mixins
 @mixin translate3d($x: 0, $y: 0, $z: 0) {
   -webkit-transform: translate3d($x, $y, $z);
@@ -24,9 +25,9 @@ $item-color: #4a4a4a;
   background: -webkit-linear-gradient($start, $white 0%, $white $percentStart, rgba(255, 255, 255, 0) $percentStop);
   background: linear-gradient(to $end, $white 0%, $white $percentStart, rgba(255, 255, 255, 0) $percentStop);
 }
+
 // common
 #better-picker-component {
-
   .picker {
     .picker-panel {
       position: fixed;

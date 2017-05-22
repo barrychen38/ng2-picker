@@ -10,9 +10,11 @@ import {
 	EventEmitter
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 // Import library
 import { Picker } from '../../vendor/better-picker/picker';
-// define send interface
+
+/* ---------------- Define send data interface ---------------- */
 export interface SendData {
 	action: string;
 	show: boolean;
@@ -20,7 +22,7 @@ export interface SendData {
 	selectedIndex: number[];
 }
 
-/* ---------------- define component and export ---------------- */
+/* ---------------- Define component and export ---------------- */
 @Component({
 	selector: 'better-picker',
 	templateUrl: './picker.template.html',
@@ -102,7 +104,7 @@ export class BetterPickerComponent implements AfterViewInit, OnChanges {
 	cancel() {
 		this.picker.hide(() => {
 			let value: SendData = {
-				action: 'confirm',
+				action: 'cancel',
 				show: false,
 				selectedValue: this.picker.selectedVal,
 				selectedIndex: this.picker.selectedIndex
@@ -120,7 +122,7 @@ export class BetterPickerComponent implements AfterViewInit, OnChanges {
 
 }
 
-/* ---------------- define module and export ---------------- */
+/* ---------------- Define module and export ---------------- */
 @NgModule({
 	imports: [ CommonModule ],
 	exports: [ BetterPickerComponent ],

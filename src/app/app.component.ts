@@ -1,14 +1,16 @@
 // Import from Angular
 import { Component } from '@angular/core';
 import { Http, Response } from '@angular/http';
+
 // Import library
 import { SendData } from './picker/picker';
+
 // Import RxJS
-import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/operator/map';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app',
   templateUrl: './app.template.html',
   styleUrls: ['./app.style.scss']
 })
@@ -95,16 +97,17 @@ export class AppComponent {
 		if (action === 'cancel') {
 			return;
 		}
-
+		
+		let combineData: string = selectedValue.join(' - ');
 		switch (this.type) {
 			case 1:
-				this.selectedBrand = selectedValue.join(' - ');
+				this.selectedBrand = combineData;
 				break;
 			case 2:
-				this.selectedMovie = selectedValue.join(' - ');
+				this.selectedMovie = combineData;
 				break;
 			case 3:
-				this.selectedArea = selectedValue.join(' - ');
+				this.selectedArea = combineData;
 				break;
 			default:
 				break;
@@ -179,7 +182,7 @@ export class AppComponent {
 	}
 
 	/**
-	 * get data length of Object, only to 3
+	 * get data length of Object, only to 3 for now
 	 */
 	 getDataLength(data: any): number {
 		if (data instanceof Array) {
@@ -202,7 +205,7 @@ export class AppComponent {
 	/**
 	 * get data from local
 	 */
-	getData(url: string) {
+	getData(url: string): Observable<any> {
 		return this.http.get(`assets/mock-data/${url}`)
 			.map((res: Response) => {
 				return res.json();
