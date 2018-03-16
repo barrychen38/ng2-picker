@@ -1,14 +1,5 @@
 // Import from Angular
-import {
-	NgModule,
-	Component,
-	Input,
-	Output,
-	OnChanges,
-	OnInit,
-	AfterViewInit,
-	EventEmitter
-} from '@angular/core';
+import { NgModule, Component, Input, Output, OnChanges, OnInit, AfterViewInit, EventEmitter, SimpleChanges, SimpleChange } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // Import library
@@ -48,12 +39,13 @@ export class BetterPickerComponent implements AfterViewInit, OnChanges {
 			this.pickerInit();
 		}
 	}
-	
+
 	/**
 	 * detect the change of data
 	 */
-	ngOnChanges(value: any) {
-		if (value.show.currentValue) {
+	ngOnChanges(value: SimpleChanges) {
+		let show: SimpleChange = value.show;
+		if (show.currentValue) {
 			setTimeout(() => {
 				this.picker.refresh(this.data, this.selectedIndex);
 			}, 0);
